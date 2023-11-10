@@ -1,0 +1,26 @@
+[
+	{
+		"firstname": "alok",
+		"lastname": "behera",
+		"email": "alokbehera@gmail.com",
+		"password": "a#3"
+	},
+	{
+		"firstname": "bikash",
+		"lastname": "sahu",
+		"email": "bikashsahugmail.com",
+		"password": "bikashsahu#123"
+	},
+	{
+		"firstname": "chakra",
+		"lastname": "naik",
+		"email": "chakranaik@gmail.com",
+		"password": "chakranaik#123456789123"
+	},
+	{
+		"firstname": "",
+		"lastname": "",
+		"email": "admin@gmail.com",
+		"password": "admin"
+	}
+]
