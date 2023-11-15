@@ -1,6 +1,7 @@
 package opencart.AbstractComponents;
 
 import java.time.Duration;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -13,9 +14,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import opencart.pageobjects.LoginPage;
+import opencart.pageobjects.ProductCataloguePage;
 import opencart.pageobjects.RegistrationPage;
-
-
 
 public class AbstractComponent {
 	WebDriver driver;
@@ -40,6 +40,19 @@ public class AbstractComponent {
 	// Login element
 	@FindBy(xpath = "//a[normalize-space()='Login']")
 	WebElement Login;
+
+	@FindBy(xpath = "//input[@placeholder='Search']")
+	WebElement SearchBox;
+
+	@FindBy(xpath = "//button[@class='btn btn-light btn-lg']")
+	WebElement SearchButton;
+
+	public ProductCataloguePage getSearchPlaceholder(String productName) {
+		SearchBox.sendKeys(productName);
+		SearchButton.click();
+		ProductCataloguePage productCataloguePage = new ProductCataloguePage(driver);
+		return productCataloguePage;
+	}
 
 	public RegistrationPage getToRegistrationPage() {
 		MyAccount.click();
@@ -69,12 +82,16 @@ public class AbstractComponent {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.visibilityOf(ele));
 	}
+	
+	public void waitForElementsToAppear(List<WebElement> ele) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.visibilityOfAllElements(ele));
+	}
 
 	public void selectDroDown(WebElement ele, String name) {
 		Select drpDownList = new Select(ele);
 		drpDownList.selectByVisibleText(name);
 	}
-	
 
 	public void waitForElementToStale(WebElement ele) {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
