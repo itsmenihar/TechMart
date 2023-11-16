@@ -14,8 +14,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import opencart.pageobjects.LoginPage;
-import opencart.pageobjects.ProductCataloguePage;
 import opencart.pageobjects.RegistrationPage;
+import opencart.pageobjects.SearchPage;
 
 public class AbstractComponent {
 	WebDriver driver;
@@ -47,11 +47,15 @@ public class AbstractComponent {
 	@FindBy(xpath = "//button[@class='btn btn-light btn-lg']")
 	WebElement SearchButton;
 
-	public ProductCataloguePage getSearchPlaceholder(String productName) {
+	public SearchPage getSearchPlaceholder(String productName) {
 		SearchBox.sendKeys(productName);
 		SearchButton.click();
-		ProductCataloguePage productCataloguePage = new ProductCataloguePage(driver);
-		return productCataloguePage;
+		SearchPage searchPage = new SearchPage(driver);
+		return searchPage;
+	}
+
+	public String getSearchBoxPlaceholder() {
+		return SearchBox.getAttribute("placeholder");
 	}
 
 	public RegistrationPage getToRegistrationPage() {
@@ -82,7 +86,7 @@ public class AbstractComponent {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.visibilityOf(ele));
 	}
-	
+
 	public void waitForElementsToAppear(List<WebElement> ele) {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.visibilityOfAllElements(ele));
