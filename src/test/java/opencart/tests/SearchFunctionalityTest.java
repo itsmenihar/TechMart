@@ -21,8 +21,6 @@ public class SearchFunctionalityTest extends BaseTest {
 		String[] actualProduct = searchPage.getProductName();
 		for (int i = 0; i < actualProduct.length; i++) {
 			String actualProductName = actualProduct[i];
-			System.out.println(actualProduct.length);
-			System.out.println(actualProductName);
 			Assert.assertEquals(actualProductName, ExpectedproductName);
 		}
 
@@ -106,21 +104,23 @@ public class SearchFunctionalityTest extends BaseTest {
 		Assert.assertTrue(prodDescription.contains(productName));
 	}
 
-//	later i will fix it
 	@Test
 	public void TC_SF_009() throws InterruptedException {
 		String productName = "iMac";
 		String option = "Mac";
+		String option2 = "PC";
+		String ExpectedMessage = "There is no product that matches the search criteria.";
 		SearchPage searchPage = landingPage.getSearchPlaceholder("");
 		searchPage.inputSearchCriteriaField(productName);
-		searchPage.getCategoryOption(option);
+		searchPage.getOption(option);
 		String[] actualProduct = searchPage.getProductName();
 		for (int i = 0; i < actualProduct.length; i++) {
 			String actualProductName = actualProduct[i];
-			System.out.println(actualProduct.length);
-			System.out.println(actualProductName);
 			Assert.assertEquals(actualProductName, productName);
 		}
+		searchPage.getOption(option2);
+		String actualMessage = searchPage.getMessage();
+		Assert.assertEquals(actualMessage, ExpectedMessage);
 	}
 
 }

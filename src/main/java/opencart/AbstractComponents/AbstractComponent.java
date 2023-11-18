@@ -91,11 +91,12 @@ public class AbstractComponent {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.visibilityOfAllElements(ele));
 	}
-
+	
 	public void selectDroDown(WebElement ele, String name) {
 		Select drpDownList = new Select(ele);
 		drpDownList.selectByVisibleText(name);
 	}
+
 
 	public void waitForElementToStale(WebElement ele) {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));

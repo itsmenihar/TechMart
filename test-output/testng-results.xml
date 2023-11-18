@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="8" total="9" passed="1" failed="0" skipped="0">
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2023-11-17T00:48:33 IST" name="Default suite" finished-at="2023-11-17T00:48:38 IST" duration-ms="4133">
+  <suite started-at="2023-11-18T18:49:36 IST" name="Default suite" finished-at="2023-11-18T18:49:41 IST" duration-ms="4519">
     <groups>
     </groups>
-    <test started-at="2023-11-17T00:48:33 IST" name="Default test" finished-at="2023-11-17T00:48:38 IST" duration-ms="4133">
-      <class name="opencart.tests.SearchFunctionalityTest">
-        <test-method is-config="true" signature="launchApplication()[pri:0, instance:opencart.tests.SearchFunctionalityTest@313ac989]" started-at="2023-11-17T00:48:33 IST" name="launchApplication" finished-at="2023-11-17T00:48:35 IST" duration-ms="2007" status="PASS">
+    <test started-at="2023-11-18T18:49:36 IST" name="Default test" finished-at="2023-11-18T18:49:41 IST" duration-ms="4519">
+      <class name="opencart.tests.ProductComparisonFunctionalityTest">
+        <test-method is-config="true" signature="launchApplication()[pri:0, instance:opencart.tests.ProductComparisonFunctionalityTest@351d00c0]" started-at="2023-11-18T18:49:36 IST" name="launchApplication" finished-at="2023-11-18T18:49:39 IST" duration-ms="2220" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- launchApplication -->
-        <test-method signature="TC_SF_009()[pri:0, instance:opencart.tests.SearchFunctionalityTest@313ac989]" started-at="2023-11-17T00:48:35 IST" name="TC_SF_009" finished-at="2023-11-17T00:48:38 IST" duration-ms="2074" status="PASS">
+        <test-method signature="TC_PC_001()[pri:0, instance:opencart.tests.ProductComparisonFunctionalityTest@351d00c0]" started-at="2023-11-18T18:49:39 IST" name="TC_PC_001" finished-at="2023-11-18T18:49:41 IST" duration-ms="2251" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- TC_SF_009 -->
-      </class> <!-- opencart.tests.SearchFunctionalityTest -->
+        </test-method> <!-- TC_PC_001 -->
+      </class> <!-- opencart.tests.ProductComparisonFunctionalityTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

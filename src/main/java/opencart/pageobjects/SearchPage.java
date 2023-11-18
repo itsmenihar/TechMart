@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Select;
 
 import opencart.AbstractComponents.AbstractComponent;
 
@@ -91,27 +90,36 @@ public class SearchPage extends AbstractComponent {
 	WebElement InputCategory;
 
 	@FindBy(xpath = "//select[@id='input-category']//option")
-	List<WebElement> options;
+	List<WebElement> dropDownList;
 
-	public void getCategoryOption(String option) throws InterruptedException {
+	public void getOption(String category) throws InterruptedException {
 		InputCategory.click();
-		for (WebElement e : options) {
-			if (e.getText().equalsIgnoreCase(option)) {
-				Thread.sleep(3000);
-				e.click();
-				break;
-			}
-		}
-//		List<WebElement> options = select.getOptions();
-//		Thread.sleep(3000);
-//		System.out.println(options);
-//		for (WebElement e : options) {
-//			if (e.getText().equalsIgnoreCase(option)) {
-//				e.click();
-//				break;
-//			}
-//		}
+		Thread.sleep(3000);
+		selectDropDownList(dropDownList, category);
+		Thread.sleep(3000);
 		SearchButton.click();
 	}
 
+	@FindBy(xpath="//img[@title='iMac']")
+	WebElement productImg;
+
+	public ProductPage getProduct() {
+		waitForElementToAppear(productImg);
+		scrollDown(0, 100);
+		productImg.click();
+		ProductPage productPage = new ProductPage(driver);
+		return productPage;
+	}
+
+	
+	
+	//dynamic for each loop for dropdown list
+	public static void selectDropDownList(List<WebElement> options, String value) {
+		for (WebElement option : options) {
+			if (option.getText().endsWith(value)) {
+				option.click();
+				break;
+			}
+		}
+	}
 }
