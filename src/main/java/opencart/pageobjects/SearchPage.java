@@ -100,7 +100,7 @@ public class SearchPage extends AbstractComponent {
 		SearchButton.click();
 	}
 
-	@FindBy(xpath="//img[@title='iMac']")
+	@FindBy(xpath = "//img[@title='iMac']")
 	WebElement productImg;
 
 	public ProductPage getProduct() {
@@ -111,9 +111,12 @@ public class SearchPage extends AbstractComponent {
 		return productPage;
 	}
 
+//	@FindBy(xpath = "//div[@class='button-group']//button[3]")
+//	WebElement CompareThisProdBtn;
+
 	
-	
-	//dynamic for each loop for dropdown list
+
+	// dynamic for each loop for dropdown list
 	public static void selectDropDownList(List<WebElement> options, String value) {
 		for (WebElement option : options) {
 			if (option.getText().endsWith(value)) {

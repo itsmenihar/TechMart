@@ -13,7 +13,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import opencart.pageobjects.DesktopsPage;
 import opencart.pageobjects.LoginPage;
+import opencart.pageobjects.ProductComparisonPage;
 import opencart.pageobjects.RegistrationPage;
 import opencart.pageobjects.SearchPage;
 
@@ -91,15 +93,96 @@ public class AbstractComponent {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.visibilityOfAllElements(ele));
 	}
-	
+
 	public void selectDroDown(WebElement ele, String name) {
 		Select drpDownList = new Select(ele);
 		drpDownList.selectByVisibleText(name);
 	}
 
-
 	public void waitForElementToStale(WebElement ele) {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.stalenessOf(ele));
 	}
+
+	@FindBy(xpath = "//div[@class='alert alert-success alert-dismissible']")
+	WebElement successMsg;
+
+	public WebElement getSuccessMessage() {
+		return successMsg;
+	}
+
+	@FindBy(css = ".tooltip-inner")
+	WebElement ToolTipCompareThisProd;
+
+	public WebElement getToolTipCompareThisProd() {
+		return ToolTipCompareThisProd;
+	}
+
+	@FindBy(xpath = "//a[normalize-space()='product comparison']")
+	WebElement ProductComparisonLinkOnMsg;
+
+	public WebElement getProductComparisonLinkOnMsg() {
+		return ProductComparisonLinkOnMsg;
+	}
+
+	@FindBy(xpath = "//div[@class='button-group']//button[3]")
+	WebElement compareThisProd;
+
+	public WebElement getCompareThisProd() {
+		return compareThisProd;
+	}
+
+	public String getCompareThisProductToolTips() {
+		scrollDown(0, 400);
+		Actions ac = new Actions(driver);
+
+		ac.moveToElement(getCompareThisProd()).perform();
+		String toolTipText = getToolTipCompareThisProd().getText();
+		return toolTipText;
+	}
+
+	public String getSuccessMsg() {
+		waitForElementToAppear(getCompareThisProd());
+		compareThisProd.click();
+		waitForElementToAppear(getSuccessMessage());
+		String msg = getSuccessMessage().getText();
+		return msg;
+	}
+
+	public ProductComparisonPage goToComparisonPage() {
+		getProductComparisonLinkOnMsg().click();
+		ProductComparisonPage prodComparisonPage = new ProductComparisonPage(driver);
+		return prodComparisonPage;
+	}
+
+	@FindBy(xpath = "//a[normalize-space()='Desktops']")
+	WebElement NavDesktops;
+
+	@FindBy(xpath = "//a[normalize-space()='Show All Desktops']")
+	WebElement ShowAllDesktops;
+
+	public DesktopsPage getAllDesktopsFromNavBar() {
+		Actions act = new Actions(driver);
+
+		act.moveToElement(NavDesktops).moveToElement(ShowAllDesktops).click().perform();
+		DesktopsPage desktopsPage = new DesktopsPage(driver);
+		return desktopsPage;
+	}
+
+	@FindBy(id = "button-list")
+	WebElement ListViewButton;
+
+	public void getListViewBtn() throws InterruptedException {
+		ListViewButton.click();
+		Thread.sleep(2000);
+	}
+
+	@FindBy(id = "button-grid")
+	WebElement GridViewButton;
+
+	public void getGridViewBtn() throws InterruptedException {
+		GridViewButton.click();
+		Thread.sleep(2000);
+	}
+
 }

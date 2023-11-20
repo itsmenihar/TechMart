@@ -17,38 +17,27 @@ public class ProductPage extends AbstractComponent {
 		PageFactory.initElements(driver, this);
 	}
 
-	@FindBy(xpath = "//div[@class='col-sm']//form//button[2]")
-	WebElement compareThisProd;
-
-	@FindBy(xpath = "//div[@class='alert alert-success alert-dismissible']")
-	WebElement successMsg;
-
-	@FindBy(css = ".tooltip-inner")
-	WebElement ToolTipCompareThisProd;
-	
-	@FindBy(xpath="//a[normalize-space()='product comparison']")
-	WebElement ProductComparisonLinkOnMsg;
-
 	public String getToolTip() {
-		waitForElementToAppear(compareThisProd);
+		waitForElementToAppear(getCompareThisProd());
 		Actions action = new Actions(driver);
-		action.moveToElement(compareThisProd).perform();
-		String toolTipText = ToolTipCompareThisProd.getText();
+		action.moveToElement(getCompareThisProd()).perform();
+		String toolTipText = getToolTipCompareThisProd().getText();
 		return toolTipText;
 	}
 
-	public String getSuccessMsg() {
-		waitForElementToAppear(compareThisProd);
-		compareThisProd.click();
-		waitForElementToAppear(successMsg);
-		String msg = successMsg.getText();
-		return msg;
+	@FindBy(xpath = "//div[@class='col-sm']//form//button[2]")
+	WebElement compareThisProd;
+
+	public WebElement getCompareThisProd() {
+		return compareThisProd;
 	}
-	
-	public ProductComparisonPage goToComparisonPage() {
-		ProductComparisonLinkOnMsg.click();
-		ProductComparisonPage prodComparisonPage = new ProductComparisonPage(driver);
-		return prodComparisonPage;
+
+	public String getSuccessMsg() {
+		waitForElementToAppear(getCompareThisProd());
+		compareThisProd.click();
+		waitForElementToAppear(getSuccessMessage());
+		String msg = getSuccessMessage().getText();
+		return msg;
 	}
 
 }
