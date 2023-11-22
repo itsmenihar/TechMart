@@ -5,8 +5,8 @@
     <classes>
       <class name="opencart.tests.ProductComparisonFunctionalityTest">
         <methods>
-          <include name="TC_PC_004"/>
           <include name="launchApplication"/>
+          <include name="TC_PC_006"/>
         </methods>
       </class> <!-- opencart.tests.ProductComparisonFunctionalityTest -->
     </classes>

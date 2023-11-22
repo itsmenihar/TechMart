@@ -111,10 +111,16 @@ public class SearchPage extends AbstractComponent {
 		return productPage;
 	}
 
-//	@FindBy(xpath = "//div[@class='button-group']//button[3]")
-//	WebElement CompareThisProdBtn;
+	// product compare button on search page
+	@FindBy(id = "compare-total")
+	WebElement ProductCompareButton;
 
-	
+	// goto product comparison page by clicking on "product compare" button
+	public ProductComparisonPage goToProductComparisonPageByProductCompareButton() {
+		ProductCompareButton.click();
+		ProductComparisonPage productComparisonPage = new ProductComparisonPage(driver);
+		return productComparisonPage;
+	}
 
 	// dynamic for each loop for dropdown list
 	public static void selectDropDownList(List<WebElement> options, String value) {

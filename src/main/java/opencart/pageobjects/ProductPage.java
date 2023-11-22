@@ -17,6 +17,15 @@ public class ProductPage extends AbstractComponent {
 		PageFactory.initElements(driver, this);
 	}
 
+//	"compare this product" element after clicking on the product
+	@FindBy(xpath = "//div[@class='col-sm']//form//button[2]")
+	WebElement compareThisProd;
+
+	public WebElement getCompareThisProd() {
+		return compareThisProd;
+	}
+
+//	hover "compare this product" element and get the text of tooltip in product
 	public String getToolTip() {
 		waitForElementToAppear(getCompareThisProd());
 		Actions action = new Actions(driver);
@@ -25,13 +34,7 @@ public class ProductPage extends AbstractComponent {
 		return toolTipText;
 	}
 
-	@FindBy(xpath = "//div[@class='col-sm']//form//button[2]")
-	WebElement compareThisProd;
-
-	public WebElement getCompareThisProd() {
-		return compareThisProd;
-	}
-
+//	to get the success message after clicking on the "compare this product" option in the product
 	public String getSuccessMsg() {
 		waitForElementToAppear(getCompareThisProd());
 		compareThisProd.click();

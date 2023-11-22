@@ -42,10 +42,10 @@ public class AbstractComponent {
 	// Login element
 	@FindBy(xpath = "//a[normalize-space()='Login']")
 	WebElement Login;
-
+	// Search box element present in the header
 	@FindBy(xpath = "//input[@placeholder='Search']")
 	WebElement SearchBox;
-
+	// search icon button present on the header right side of the search box
 	@FindBy(xpath = "//button[@class='btn btn-light btn-lg']")
 	WebElement SearchButton;
 
@@ -104,6 +104,7 @@ public class AbstractComponent {
 		wait.until(ExpectedConditions.stalenessOf(ele));
 	}
 
+	// success message element popup on the right side upper corner
 	@FindBy(xpath = "//div[@class='alert alert-success alert-dismissible']")
 	WebElement successMsg;
 
@@ -111,6 +112,7 @@ public class AbstractComponent {
 		return successMsg;
 	}
 
+	// tool tip element of "compare this product"
 	@FindBy(css = ".tooltip-inner")
 	WebElement ToolTipCompareThisProd;
 
@@ -118,6 +120,10 @@ public class AbstractComponent {
 		return ToolTipCompareThisProd;
 	}
 
+	/*
+	 * product comparison link present in the success message after clicking on
+	 * "compare this product" element
+	 */
 	@FindBy(xpath = "//a[normalize-space()='product comparison']")
 	WebElement ProductComparisonLinkOnMsg;
 
@@ -125,30 +131,47 @@ public class AbstractComponent {
 		return ProductComparisonLinkOnMsg;
 	}
 
+	// "compare this product" element present on product list
 	@FindBy(xpath = "//div[@class='button-group']//button[3]")
-	WebElement compareThisProd;
+	WebElement compareThisProdElement;
 
-	public WebElement getCompareThisProd() {
-		return compareThisProd;
+	public WebElement getCompareThisProdElement() {
+		return compareThisProdElement;
 	}
 
+	// capture tool tip text by actions class by scrolling 400 in y axis
 	public String getCompareThisProductToolTips() {
 		scrollDown(0, 400);
+		waitForElementToAppear(getCompareThisProdElement());
 		Actions ac = new Actions(driver);
-
-		ac.moveToElement(getCompareThisProd()).perform();
+		ac.moveToElement(getCompareThisProdElement()).perform();
 		String toolTipText = getToolTipCompareThisProd().getText();
 		return toolTipText;
 	}
 
-	public String getSuccessMsg() {
-		waitForElementToAppear(getCompareThisProd());
-		compareThisProd.click();
+	// capture tool tip text by actions class by scrolling 900 in y axis
+	public String getCompareThisProductToolTipsOfRelatedProd() {
+		scrollDown(0, 900);
+		waitForElementToAppear(getCompareThisProdElement());
+		Actions ac = new Actions(driver);
+		ac.moveToElement(getCompareThisProdElement()).perform();
+		String toolTipText = getToolTipCompareThisProd().getText();
+		return toolTipText;
+	}
+
+	// geting success message of adding the product to comparison
+	public String getSuccessMsgOfAdding() {
+		waitForElementToAppear(getCompareThisProdElement());
+		getCompareThisProdElement().click();
 		waitForElementToAppear(getSuccessMessage());
 		String msg = getSuccessMessage().getText();
 		return msg;
 	}
 
+	/*
+	 * going to comparison page after clicking on the "product comparison" link in
+	 * success message
+	 */
 	public ProductComparisonPage goToComparisonPage() {
 		getProductComparisonLinkOnMsg().click();
 		ProductComparisonPage prodComparisonPage = new ProductComparisonPage(driver);
@@ -163,7 +186,6 @@ public class AbstractComponent {
 
 	public DesktopsPage getAllDesktopsFromNavBar() {
 		Actions act = new Actions(driver);
-
 		act.moveToElement(NavDesktops).moveToElement(ShowAllDesktops).click().perform();
 		DesktopsPage desktopsPage = new DesktopsPage(driver);
 		return desktopsPage;

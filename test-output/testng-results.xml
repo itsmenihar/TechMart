@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="3" total="4" passed="1" failed="0" skipped="0">
+<testng-results ignored="7" total="8" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2023-11-20T17:20:17 IST" name="Default suite" finished-at="2023-11-20T17:20:24 IST" duration-ms="6645">
+  <suite started-at="2023-11-22T11:40:38 IST" name="Default suite" finished-at="2023-11-22T11:40:43 IST" duration-ms="4678">
     <groups>
     </groups>
-    <test started-at="2023-11-20T17:20:17 IST" name="Default test" finished-at="2023-11-20T17:20:24 IST" duration-ms="6645">
+    <test started-at="2023-11-22T11:40:38 IST" name="Default test" finished-at="2023-11-22T11:40:43 IST" duration-ms="4678">
       <class name="opencart.tests.ProductComparisonFunctionalityTest">
-        <test-method is-config="true" signature="launchApplication()[pri:0, instance:opencart.tests.ProductComparisonFunctionalityTest@35d019a3]" started-at="2023-11-20T17:20:18 IST" name="launchApplication" finished-at="2023-11-20T17:20:20 IST" duration-ms="2324" status="PASS">
+        <test-method is-config="true" signature="launchApplication()[pri:0, instance:opencart.tests.ProductComparisonFunctionalityTest@76505305]" started-at="2023-11-22T11:40:38 IST" name="launchApplication" finished-at="2023-11-22T11:40:42 IST" duration-ms="3422" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- launchApplication -->
-        <test-method signature="TC_PC_004()[pri:0, instance:opencart.tests.ProductComparisonFunctionalityTest@35d019a3]" started-at="2023-11-20T17:20:20 IST" name="TC_PC_004" finished-at="2023-11-20T17:20:24 IST" duration-ms="4268" status="PASS">
+        <test-method signature="TC_PC_008()[pri:0, instance:opencart.tests.ProductComparisonFunctionalityTest@76505305]" started-at="2023-11-22T11:40:42 IST" name="TC_PC_008" finished-at="2023-11-22T11:40:43 IST" duration-ms="1091" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- TC_PC_004 -->
+        </test-method> <!-- TC_PC_008 -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:opencart.tests.ProductComparisonFunctionalityTest@76505305]" started-at="2023-11-22T11:40:43 IST" name="tearDown" finished-at="2023-11-22T11:40:43 IST" duration-ms="104" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
       </class> <!-- opencart.tests.ProductComparisonFunctionalityTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
