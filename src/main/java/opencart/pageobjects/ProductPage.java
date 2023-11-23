@@ -43,4 +43,73 @@ public class ProductPage extends AbstractComponent {
 		return msg;
 	}
 
+	// product thumbnail
+	@FindBy(xpath = "//img[@class='img-thumbnail mb-3']")
+	WebElement ProdThumbnail;
+
+	// after clicking on the big size product thumbnail
+	public void goToLightBoxView() {
+		ProdThumbnail.click();
+		;
+	}
+
+	public WebElement getProductThumbnail() {
+		return ProdThumbnail;
+	}
+
+	// product light box view
+	@FindBy(xpath = "//img[@class='mfp-img']")
+	WebElement LightBoxView;
+
+	public WebElement getLightBoxView() {
+		return LightBoxView;
+	}
+
+	// left arrow key on Light box view
+	@FindBy(xpath = "//button[@title='Previous (Left arrow key)']")
+	WebElement LeftArrowKey;
+
+	public WebElement getLeftArrowKey() {
+		return LeftArrowKey;
+	}
+
+	// right arrow key on Light box view
+	@FindBy(xpath = "//button[@title='Next (Right arrow key)']")
+	WebElement RightArrowKey;
+
+	public WebElement getRightArrowKey() {
+		return RightArrowKey;
+	}
+
+	// close or Esc button on light box view
+	@FindBy(css = "button[title='Close (Esc)']")
+	WebElement CloseButton;
+
+	public WebElement getCloseButton() {
+		return CloseButton;
+	}
+
+	// product name
+	@FindBy(css = "div[class='col-sm'] h1")
+	WebElement productName;
+
+	public String getProductNameFromDescription() {
+		return productName.getText();
+	}
+
+	// Brand name
+	@FindBy(xpath = "//div[@class='row mb-3']//ul[@class='list-unstyled']//li[1]//a")
+	WebElement brandName;
+
+	public String getBrandNameFromDescription() {
+		return brandName.getText();
+	}
+
+	// product code of
+	@FindBy(xpath = "//li[normalize-space()='Product Code: Product 14']")
+	WebElement productCode;
+
+	public String getProductCodeFromDescription() {
+		return productCode.getText();
+	}
 }
