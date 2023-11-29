@@ -1,12 +1,15 @@
 package opencart.tests;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import opencart.TestComponents.BaseTest;
 import opencart.pageobjects.ProductPage;
 import opencart.pageobjects.SearchPage;
+import opencart.pageobjects.ShoppinCartPage;
 
 public class ProductDisplayTest extends BaseTest {
 	WebDriver driver;
@@ -38,5 +41,64 @@ public class ProductDisplayTest extends BaseTest {
 		Assert.assertEquals(actualBrandName, expectedBrandName);
 		String actualProductCode = productPage.getProductCodeFromDescription();
 		Assert.assertEquals(actualProductCode, expectedProductCode);
+	}
+
+	@Test
+	public void TC_PDP_003() {
+		String expectedAvailabilityMsg = "Availability: In Stock";
+		SearchPage searchPage = landingPage.getSearchPlaceholder(expectedProductName);
+		ProductPage productPage = searchPage.getProduct();
+		String actualAvailabilityMsg = productPage.getProductAvailabilityFromDescription();
+		Assert.assertEquals(actualAvailabilityMsg, expectedAvailabilityMsg);
+	}
+
+	@Test
+	public void TC_PDP_004() {
+		String expectedProductPrice = "$122.00";
+		String expectedTaxPrice = "Ex Tax: $100.00";
+		SearchPage searchPage = landingPage.getSearchPlaceholder(expectedProductName);
+		ProductPage productPage = searchPage.getProduct();
+		String actualProductPrice = productPage.getProductPriceFromDescription();
+		Assert.assertEquals(actualProductPrice, expectedProductPrice);
+		String actualTaxPrice = productPage.getiMacTaxPrice();
+		Assert.assertEquals(actualTaxPrice, expectedTaxPrice);
+	}
+
+	@Test
+	public void TC_PDP_005() {
+		String expectedMessage = "Success: You have added iMac to your shopping cart!";
+		String expectedQuantityInCart = "2";
+		SearchPage searchPage = landingPage.getSearchPlaceholder(expectedProductName);
+		ProductPage productPage = searchPage.getProduct();
+		String actualQuantity = productPage.getProductQuantity();
+		Assert.assertTrue(actualQuantity.equalsIgnoreCase("1"));
+		String actualMessage = productPage.inputProductQuantity("2");
+		Assert.assertEquals(actualMessage, expectedMessage);
+		ShoppinCartPage shoppingCartPage = productPage.getShoppingCartPage();
+		String actualQuantityInCart = shoppingCartPage.getQuntityValue();
+		Assert.assertEquals(actualQuantityInCart, expectedQuantityInCart);
+	}
+
+	@Test
+	public void TC_PDP_006() throws InterruptedException {
+		String[] quantities = { "", "0", "-2" };
+		String expectedMessage = "Quantity should be a positive number' or 'Quantity cannot be zero, null or negative";
+		SearchPage searchPage = landingPage.getSearchPlaceholder(expectedProductName);
+		ProductPage productPage = searchPage.getProduct();
+		String actualQuantity = productPage.getProductQuantity();
+		Assert.assertTrue(actualQuantity.equalsIgnoreCase("1"));
+		SoftAssert softassert = new SoftAssert();
+		for (String quantity : quantities) {
+			productPage.getInputFieldQuantity().clear();
+			Thread.sleep(2000);
+			productPage.getInputFieldQuantity().sendKeys(quantity);
+			Thread.sleep(2000);
+			productPage.getAddToCartButton().click();;
+			String actualMessage = productPage.getAddingToShoppingCartMsg();
+			Thread.sleep(2000);
+			softassert.assertEquals(actualMessage, expectedMessage);
+			softassert.assertAll();
+		}
+
 	}
 }

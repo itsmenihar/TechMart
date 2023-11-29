@@ -3,12 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="opencart.tests.ProductComparisonFunctionalityTest">
+      <class name="opencart.tests.ProductDisplayTest">
         <methods>
           <include name="launchApplication"/>
-          <include name="TC_PC_006"/>
+          <include name="TC_PDP_006"/>
+          <include name="tearDown"/>
         </methods>
-      </class> <!-- opencart.tests.ProductComparisonFunctionalityTest -->
+      </class> <!-- opencart.tests.ProductDisplayTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

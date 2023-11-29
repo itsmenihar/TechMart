@@ -105,11 +105,83 @@ public class ProductPage extends AbstractComponent {
 		return brandName.getText();
 	}
 
-	// product code of
+	// product code of iMac
 	@FindBy(xpath = "//li[normalize-space()='Product Code: Product 14']")
 	WebElement productCode;
 
 	public String getProductCodeFromDescription() {
 		return productCode.getText();
 	}
+
+	// product availability of iMac
+	@FindBy(xpath = "//li[normalize-space()='Availability: In Stock']")
+	WebElement ProductAvailability;
+
+	public String getProductAvailabilityFromDescription() {
+		return ProductAvailability.getText();
+	}
+
+	// product price
+	@FindBy(xpath = "//ul[@class='list-unstyled']//li//h2")
+	WebElement ProductPrice;
+
+	public String getProductPriceFromDescription() {
+		return ProductPrice.getText();
+	}
+
+	// product tax price of iMac product
+	@FindBy(xpath = "//li[normalize-space()='Ex Tax: $100.00']")
+	WebElement iMacTaxPrice;
+
+	public String getiMacTaxPrice() {
+		return iMacTaxPrice.getText();
+	}
+
+	// product quantity in product display page
+	@FindBy(id = "input-quantity")
+	WebElement productQuantity;
+
+	public WebElement getInputFieldQuantity() {
+		return productQuantity;
+	}
+
+	// add to cart button
+	@FindBy(css = "#button-cart")
+	WebElement addToCartButton;
+
+	// success message for adding product to shopping cart
+	@FindBy(css = ".alert.alert-success.alert-dismissible")
+	WebElement addingToShoppingCartMsg;
+
+	public String getAddingToShoppingCartMsg() {
+		return addingToShoppingCartMsg.getText();
+	}
+
+	public WebElement getAddToCartButton() {
+		return addToCartButton;
+	}
+
+	public String getProductQuantity() {
+		return productQuantity.getAttribute("value");
+	}
+
+	// increase product quantity above 1 and adding the product to shopping cart,
+	// capture the success message
+	public String inputProductQuantity(String Qnty) {
+		productQuantity.clear();
+		productQuantity.sendKeys(Qnty);
+		addToCartButton.click();
+		return addingToShoppingCartMsg.getText();
+	}
+
+	@FindBy(xpath = "//a[normalize-space()='shopping cart']")
+	WebElement shoppingCartLink;
+
+	// click on the shopping cart link in success message of adding product to cart
+	public ShoppinCartPage getShoppingCartPage() {
+		shoppingCartLink.click();
+		ShoppinCartPage shoppinCartPage = new ShoppinCartPage(driver);
+		return shoppinCartPage;
+	}
+
 }
