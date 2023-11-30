@@ -100,7 +100,7 @@ public class SearchPage extends AbstractComponent {
 		SearchButton.click();
 	}
 
-	@FindBy(xpath = "//img[@title='iMac']")
+	@FindBy(xpath = "//div[@class='image']//a")
 	WebElement productImg;
 
 	public ProductPage getProduct() {

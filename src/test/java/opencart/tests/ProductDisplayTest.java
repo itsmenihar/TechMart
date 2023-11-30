@@ -1,7 +1,6 @@
 package opencart.tests;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -93,12 +92,31 @@ public class ProductDisplayTest extends BaseTest {
 			Thread.sleep(2000);
 			productPage.getInputFieldQuantity().sendKeys(quantity);
 			Thread.sleep(2000);
-			productPage.getAddToCartButton().click();;
+			productPage.getAddToCartButton().click();
+			;
 			String actualMessage = productPage.getAddingToShoppingCartMsg();
 			Thread.sleep(2000);
 			softassert.assertEquals(actualMessage, expectedMessage);
 			softassert.assertAll();
 		}
 
+	}
+
+	@Test
+	public void TC_PDP_007() {
+		String expectedProdName = "Apple Cinema 30\"";
+		String expectedTextUnderAddToCartBtn = "This product has a minimum quantity of 2";
+		SearchPage searchPage = landingPage.getSearchPlaceholder(expectedProdName);
+		ProductPage productPage = searchPage.getProduct();
+		String actualQuantity = productPage.getProductQuantity();
+		Assert.assertTrue(actualQuantity.equalsIgnoreCase("2"));
+		String actualTextUnderAddToCartBtn = productPage.getTextUnderAddToCartButton();
+		Assert.assertEquals(actualTextUnderAddToCartBtn, expectedTextUnderAddToCartBtn);
+		productPage.scrollDown(0, 200);
+		productPage.getDesiredRadioOption("Medium (+$26.00)");
+		productPage.scrollDown(0, 200);
+		productPage.getDesiredCheckbox("Checkbox 2 (+$26.00)");
+		productPage.scrollDown(0, 200);
+		productPage.getDesiredColor("Blue (+$5.60)");
 	}
 }

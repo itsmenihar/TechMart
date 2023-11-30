@@ -1,10 +1,13 @@
 package opencart.pageobjects;
 
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 import opencart.AbstractComponents.AbstractComponent;
 
@@ -182,6 +185,62 @@ public class ProductPage extends AbstractComponent {
 		shoppingCartLink.click();
 		ShoppinCartPage shoppinCartPage = new ShoppinCartPage(driver);
 		return shoppinCartPage;
+	}
+
+	// under the add to cart button text
+	@FindBy(xpath = "//div[@class='alert alert-info']")
+	WebElement underAddToCartText;
+
+	public String getTextUnderAddToCartButton() {
+		return underAddToCartText.getText();
+	}
+
+	// radio options
+	@FindBy(xpath = "//div[@class='mb-3 required'][1]//div[@class='form-check']//label")
+	List<WebElement> radioOptions;
+
+	public void getDesiredRadioOption(String size) {
+		for (WebElement e : radioOptions) {
+			String sizeOption = e.getText();
+			if (sizeOption.equalsIgnoreCase(size)) {
+				e.click();
+			}
+		}
+	}
+
+	// checkboxes options
+	@FindBy(xpath = "//div[@class='mb-3 required'][2]//div[@class='form-check']//label")
+	List<WebElement> checkBoxes;
+
+	public void getDesiredCheckbox(String checkBoxName) {
+		for (WebElement e : checkBoxes) {
+			String checkBox = e.getText();
+			if (checkBox.equalsIgnoreCase(checkBoxName)) {
+				e.click();
+			}
+		}
+	}
+
+	@FindBy(xpath = "//select[@id='input-option-217']")
+	WebElement selectColor;
+
+	public void getDesiredColor(String color) {
+		Select select = new Select(selectColor);
+		select.selectByVisibleText(color);
+	}
+
+	@FindBy(css = "#input-option-209")
+	WebElement textArea;
+
+	public void inputText(String text) {
+		textArea.sendKeys(text);
+	}
+
+	@FindBy(css = "#button-upload-222")
+	WebElement fileUpload;
+
+	public void uploadFile(String filePath) {
+		fileUpload.sendKeys(filePath);
 	}
 
 }

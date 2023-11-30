@@ -5,8 +5,8 @@
     <classes>
       <class name="opencart.tests.ProductDisplayTest">
         <methods>
+          <include name="TC_PDP_007"/>
           <include name="launchApplication"/>
-          <include name="TC_PDP_006"/>
           <include name="tearDown"/>
         </methods>
       </class> <!-- opencart.tests.ProductDisplayTest -->
