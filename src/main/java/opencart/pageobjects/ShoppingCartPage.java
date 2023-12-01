@@ -7,17 +7,17 @@ import org.openqa.selenium.support.PageFactory;
 
 import opencart.AbstractComponents.AbstractComponent;
 
-public class ShoppinCartPage extends AbstractComponent {
+public class ShoppingCartPage extends AbstractComponent {
 	WebDriver driver;
 
-	public ShoppinCartPage(WebDriver driver) {
+	public ShoppingCartPage(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
 	
 	//product quantity 
-	@FindBy(css = "input[value='2']")
+	@FindBy(name = "quantity")
 	WebElement quantityField;
 	
 	public String getQuntityValue() {

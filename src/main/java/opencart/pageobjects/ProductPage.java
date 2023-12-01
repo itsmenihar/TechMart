@@ -1,7 +1,13 @@
 package opencart.pageobjects;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
 import java.util.List;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -181,9 +187,9 @@ public class ProductPage extends AbstractComponent {
 	WebElement shoppingCartLink;
 
 	// click on the shopping cart link in success message of adding product to cart
-	public ShoppinCartPage getShoppingCartPage() {
+	public ShoppingCartPage getShoppingCartPage() {
 		shoppingCartLink.click();
-		ShoppinCartPage shoppinCartPage = new ShoppinCartPage(driver);
+		ShoppingCartPage shoppinCartPage = new ShoppingCartPage(driver);
 		return shoppinCartPage;
 	}
 
@@ -229,6 +235,7 @@ public class ProductPage extends AbstractComponent {
 		select.selectByVisibleText(color);
 	}
 
+	// text input in textarea
 	@FindBy(css = "#input-option-209")
 	WebElement textArea;
 
@@ -236,11 +243,36 @@ public class ProductPage extends AbstractComponent {
 		textArea.sendKeys(text);
 	}
 
+	// file upload button
 	@FindBy(css = "#button-upload-222")
 	WebElement fileUpload;
 
-	public void uploadFile(String filePath) {
-		fileUpload.sendKeys(filePath);
+	public void uploadFile(String filePath) throws AWTException {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].click();", fileUpload);
+		Robot rb = new Robot();
+		rb.delay(3000);
+
+		// put path to file in clipboard
+		StringSelection ss = new StringSelection(filePath);
+		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, null);
+
+		// CTRL + V
+		rb.keyPress(KeyEvent.VK_CONTROL);
+		rb.keyPress(KeyEvent.VK_V);
+		rb.delay(3000);
+
+		rb.keyRelease(KeyEvent.VK_CONTROL);
+		rb.keyRelease(KeyEvent.VK_V);
+		rb.delay(3000);
+
+		// ENTER KEY
+		rb.keyPress(KeyEvent.VK_ENTER);
+		rb.keyRelease(KeyEvent.VK_ENTER);
+	}
+	
+	public void handleAlert() {
+		driver.switchTo().alert().accept();
 	}
 
 }

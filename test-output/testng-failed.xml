@@ -7,7 +7,6 @@
         <methods>
           <include name="TC_PDP_007"/>
           <include name="launchApplication"/>
-          <include name="tearDown"/>
         </methods>
       </class> <!-- opencart.tests.ProductDisplayTest -->
     </classes>

@@ -1,5 +1,7 @@
 package opencart.tests;
 
+import java.awt.AWTException;
+
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -8,10 +10,11 @@ import org.testng.asserts.SoftAssert;
 import opencart.TestComponents.BaseTest;
 import opencart.pageobjects.ProductPage;
 import opencart.pageobjects.SearchPage;
-import opencart.pageobjects.ShoppinCartPage;
+import opencart.pageobjects.ShoppingCartPage;
 
 public class ProductDisplayTest extends BaseTest {
 	WebDriver driver;
+	SoftAssert softassert = new SoftAssert();
 	String expectedProductName = "iMac";
 
 	// Validate the Thumbnails of the Product displayed in the Product Display Page
@@ -73,7 +76,7 @@ public class ProductDisplayTest extends BaseTest {
 		Assert.assertTrue(actualQuantity.equalsIgnoreCase("1"));
 		String actualMessage = productPage.inputProductQuantity("2");
 		Assert.assertEquals(actualMessage, expectedMessage);
-		ShoppinCartPage shoppingCartPage = productPage.getShoppingCartPage();
+		ShoppingCartPage shoppingCartPage = productPage.getShoppingCartPage();
 		String actualQuantityInCart = shoppingCartPage.getQuntityValue();
 		Assert.assertEquals(actualQuantityInCart, expectedQuantityInCart);
 	}
@@ -86,7 +89,6 @@ public class ProductDisplayTest extends BaseTest {
 		ProductPage productPage = searchPage.getProduct();
 		String actualQuantity = productPage.getProductQuantity();
 		Assert.assertTrue(actualQuantity.equalsIgnoreCase("1"));
-		SoftAssert softassert = new SoftAssert();
 		for (String quantity : quantities) {
 			productPage.getInputFieldQuantity().clear();
 			Thread.sleep(2000);
@@ -103,9 +105,12 @@ public class ProductDisplayTest extends BaseTest {
 	}
 
 	@Test
-	public void TC_PDP_007() {
+	public void TC_PDP_007() throws AWTException, InterruptedException {
+		String expectedQuantityInCart = "4";
+		String expectedAddToCartMsg = "Minimum order amount for Apple Cinema 30\" is 2!";
 		String expectedProdName = "Apple Cinema 30\"";
 		String expectedTextUnderAddToCartBtn = "This product has a minimum quantity of 2";
+		String filePath = "C:\\Users\\nihar\\Downloads\\Documents\\Manual Testing Notes _ TheTestingAcademy _ .pdf";
 		SearchPage searchPage = landingPage.getSearchPlaceholder(expectedProdName);
 		ProductPage productPage = searchPage.getProduct();
 		String actualQuantity = productPage.getProductQuantity();
@@ -118,5 +123,19 @@ public class ProductDisplayTest extends BaseTest {
 		productPage.getDesiredCheckbox("Checkbox 2 (+$26.00)");
 		productPage.scrollDown(0, 200);
 		productPage.getDesiredColor("Blue (+$5.60)");
+		productPage.inputText("prod");
+		productPage.uploadFile(filePath);
+		Thread.sleep(2000);
+		productPage.handleAlert();
+		productPage.scrollDown(0, 500);
+		productPage.inputProductQuantity("1");
+		Thread.sleep(3000);
+		String actualAddingToCartMsg = productPage.getAddingToShoppingCartMsg();
+		softassert.assertEquals(actualAddingToCartMsg, expectedAddToCartMsg);
+		productPage.inputProductQuantity("4");
+		ShoppingCartPage shoppingCartPage = productPage.getShoppingCartPage();
+		String actualQuantityInCart = shoppingCartPage.getQuntityValue();
+		softassert.assertEquals(actualQuantityInCart, expectedQuantityInCart);
+		softassert.assertAll();
 	}
 }
